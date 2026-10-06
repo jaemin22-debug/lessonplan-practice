@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 1: Reading & Recording Activity - Charlotte's Web</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .font-heading {
+      font-family: 'Fredoka', cursive, sans-serif;
+    }
+    /* Pulsing recording indicator */
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.15); opacity: 0.4; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+    .pulse-animation {
+      animation: pulse-ring 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
+</head>
+<body class="bg-amber-50/40 text-slate-800 min-h-screen pb-12">
+
+  <header class="bg-white border-b border-amber-200 shadow-sm sticky top-0 z-30">
+    <div class="max-w-4xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-2xl bg-amber-500 text-white flex items-center justify-center text-xl shadow-md shadow-amber-200">
+          <i class="fa-solid fa-microphone-lines"></i>
+        </div>
+        <div>
+          <h1 class="font-heading text-xl sm:text-2xl text-slate-800 font-bold tracking-tight">Lesson 1: English Speaking Practice</h1>
+          <p class="text-xs sm:text-sm text-slate-500 font-medium">Charlotte's Web • Onomatopoeia to Rhyming</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 mr-2 animate-ping"></span>
+          Ready to Practice
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 py-6 space-y-6">
+
+    <!-- Instructions Banner -->
+    <div class="bg-gradient-to-r from-amber-100/90 to-orange-100/70 border border-amber-200/80 rounded-2xl p-4 sm:p-5 flex items-start gap-4 shadow-sm">
+      <div class="text-amber-600 text-2xl mt-0.5">
+        <i class="fa-solid fa-lightbulb"></i>
+      </div>
+      <div class="text-sm sm:text-base text-slate-700 leading-relaxed">
+        <p class="font-semibold text-slate-900 mb-1">How to do this activity:</p>
+        <ol class="list-decimal list-inside space-y-1 text-slate-700 text-xs sm:text-sm">
+          <li>Read the script below out loud, or click <strong>"Listen Sample"</strong> to hear the pronunciation.</li>
+          <li>Press the <strong>"Start Recording"</strong> button to record your own voice.</li>
+          <li>Click <strong>"Stop"</strong> when you are done, review your recording, and press <strong>"Download"</strong> to save your file!</li>
+        </ol>
+      </div>
+    </div>
+
+    <section class="bg-white rounded-3xl p-5 sm:p-7 border border-amber-200 shadow-md">
+      <!-- Toolbar for Text Size and TTS -->
+      <div class="flex flex-wrap items-center justify-between pb-4 mb-4 border-b border-slate-100 gap-3">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Reading Script</span>
+          <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-0.5 rounded-full font-medium">Text Box</span>
+        </div>
+        
+        <div class="flex items-center gap-2">
+          <!-- Text Size Adjusters -->
+          <div class="flex items-center bg-slate-100 rounded-xl p-1 text-slate-600 text-xs">
+            <button id="btnTextSmaller" class="px-2.5 py-1 rounded-lg hover:bg-white hover:shadow-xs transition" title="Smaller Font">A-</button>
+            <button id="btnTextReset" class="px-2.5 py-1 rounded-lg hover:bg-white hover:shadow-xs font-semibold transition" title="Default Size">A</button>
+            <button id="btnTextLarger" class="px-2.5 py-1 rounded-lg hover:bg-white hover:shadow-xs transition" title="Larger Font">A+</button>
+          </div>
+
+          <!-- TTS Audio Sample Button -->
+          <button id="btnTTS" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-semibold transition active:scale-95">
+            <i class="fa-solid fa-volume-high text-amber-700"></i>
+            <span id="ttsBtnText">Listen Sample</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- The Reading Box -->
+      <div id="scriptContentBox" class="p-5 sm:p-7 rounded-2xl bg-amber-50/50 border border-amber-100/80 leading-relaxed transition-all text-slate-800 text-lg sm:text-xl space-y-4">
+        <p>
+          "Hello, everyone! Nice to see you back today. Did you have a good lunch? Awesome.
+        </p>
+        <p>
+          Now, do you remember what we talked about with <em>Charlotte's Web</em> last Friday? Yes, we talked about <strong>onomatopoeia</strong>. We learned that onomatopoeia is a figure of speech mimicking the sounds of animals or inanimate things, such as the wind.
+        </p>
+        <p>
+          So if we say, <em>'Pigs make a sound of...?'</em> Yes, <strong>'oink!'</strong> How about horses? Yes, they say <strong>'neigh,'</strong> mostly. Good job remembering that!
+        </p>
+        <p>
+          Now, today we will continue to focus on the sounds of English words based on the story <em>Charlotte's Web</em>. This time, we will make a poem out of the story and learn how to make a rhyme. Got it?
+        </p>
+        <p class="font-medium text-amber-950">
+          What are we going to learn about today? Yes, <strong>rhymes!</strong> Then let's dive into today's lesson by figuring out what rhyming is first."
+        </p>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-3xl p-5 sm:p-7 border border-amber-200 shadow-md space-y-5">
+      <div class="flex items-center justify-between">
+        <h2 class="font-heading text-lg font-bold text-slate-800 flex items-center gap-2">
+          <i class="fa-solid fa-circle-dot text-rose-500 text-sm"></i> Voice Recording Console
+        </h2>
+        <!-- Status Indicator -->
+        <span id="recorderStatus" class="text-xs font-semibold px-3 py-1 rounded-full bg-slate-100 text-slate-600">
+          Ready to Record
+        </span>
+      </div>
+
+      <!-- Waveform Visualizer & Timer Screen -->
+      <div class="relative bg-slate-900 rounded-2xl p-4 overflow-hidden flex flex-col items-center justify-center min-h-[140px] shadow-inner">
+        <!-- Live Audio Canvas -->
+        <canvas id="visualizerCanvas" class="w-full h-24 block"></canvas>
+        
+        <!-- Timer Display -->
+        <div class="mt-2 flex items-center gap-2 text-white font-mono text-xl sm:text-2xl font-bold tracking-wider">
+          <span id="recordingTimer">00:00</span>
+          <span id="liveBadge" class="hidden text-[10px] font-sans font-bold bg-rose-600 text-white px-2 py-0.5 rounded-full uppercase tracking-wider pulse-animation">
+            REC
+          </span>
+        </div>
+      </div>
+
+      <!-- Controls: Record / Stop / Reset Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-2">
+        <!-- Record Button -->
+        <button id="btnRecord" class="flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-rose-500 hover:bg-rose-600 text-white font-semibold text-base shadow-lg shadow-rose-200 transition-all active:scale-95 cursor-pointer">
+          <i class="fa-solid fa-microphone text-lg"></i>
+          <span>Start Recording</span>
+        </button>
+
+        <!-- Stop Button (Disabled by default) -->
+        <button id="btnStop" disabled class="flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-slate-200 text-slate-400 font-semibold text-base transition-all cursor-not-allowed">
+          <i class="fa-solid fa-stop text-lg"></i>
+          <span>Stop</span>
+        </button>
+
+        <!-- Re-record / Clear Button -->
+        <button id="btnReset" disabled class="flex items-center gap-2 px-4 py-3.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold text-sm transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+          <i class="fa-solid fa-rotate-left"></i>
+          <span>Re-record</span>
+        </button>
+      </div>
+
+      <!-- Alert Notification Area for Mic Permissions -->
+      <div id="notificationBox" class="hidden p-3 rounded-xl text-sm font-medium transition-all"></div>
+
+      <div id="playbackSection" class="hidden mt-6 pt-6 border-t border-slate-100 bg-amber-50/40 rounded-2xl p-5 border border-amber-100 space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm shadow">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div>
+              <p class="font-bold text-slate-800 text-sm">Your Recording is Ready!</p>
+              <p class="text-xs text-slate-500">Listen back to review or save it to your device.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Custom Audio Element -->
+        <div class="w-full flex items-center justify-center">
+          <audio id="audioPlayback" controls class="w-full max-w-xl rounded-xl outline-none shadow-sm"></audio>
+        </div>
+
+        <!-- Download Action Button -->
+        <div class="flex justify-center pt-2">
+          <button id="btnDownload" class="flex items-center gap-2.5 px-6 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-md shadow-emerald-200 transition-all active:scale-95">
+            <i class="fa-solid fa-cloud-arrow-down text-lg"></i>
+            <span>Download My Recording</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // State variables
+    let mediaRecorder = null;
+    let audioChunks = [];
+    let audioBlob = null;
+    let audioUrl = null;
+    let timerInterval = null;
+    let elapsedSeconds = 0;
+
+    // Web Audio visualizer variables
+    let audioContext = null;
+    let analyserNode = null;
+    let dataArray = null;
+    let visualizerAnimationId = null;
+
+    // DOM Elements
+    const btnRecord = document.getElementById('btnRecord');
+    const btnStop = document.getElementById('btnStop');
+    const btnReset = document.getElementById('btnReset');
+    const btnDownload = document.getElementById('btnDownload');
+    const timerDisplay = document.getElementById('recordingTimer');
+    const liveBadge = document.getElementById('liveBadge');
+    const recorderStatus = document.getElementById('recorderStatus');
+    const playbackSection = document.getElementById('playbackSection');
+    const audioPlayback = document.getElementById('audioPlayback');
+    const visualizerCanvas = document.getElementById('visualizerCanvas');
+    const canvasCtx = visualizerCanvas.getContext('2d');
+    const notificationBox = document.getElementById('notificationBox');
+
+    // Font resizing
+    const scriptBox = document.getElementById('scriptContentBox');
+    const fontSizes = ['text-base', 'text-lg', 'text-xl', 'text-2xl'];
+    let currentFontSizeIndex = 2; // default: text-xl
+
+    document.getElementById('btnTextLarger').addEventListener('click', () => {
+      if (currentFontSizeIndex < fontSizes.length - 1) {
+        scriptBox.classList.remove(fontSizes[currentFontSizeIndex]);
+        currentFontSizeIndex++;
+        scriptBox.classList.add(fontSizes[currentFontSizeIndex]);
+      }
+    });
+
+    document.getElementById('btnTextSmaller').addEventListener('click', () => {
+      if (currentFontSizeIndex > 0) {
+        scriptBox.classList.remove(fontSizes[currentFontSizeIndex]);
+        currentFontSizeIndex--;
+        scriptBox.classList.add(fontSizes[currentFontSizeIndex]);
+      }
+    });
+
+    document.getElementById('btnTextReset').addEventListener('click', () => {
+      fontSizes.forEach(cls => scriptBox.classList.remove(cls));
+      currentFontSizeIndex = 2;
+      scriptBox.classList.add('text-xl');
+    });
+
+    const btnTTS = document.getElementById('btnTTS');
+    const ttsBtnText = document.getElementById('ttsBtnText');
+    let isSpeaking = false;
+
+    btnTTS.addEventListener('click', () => {
+      if (!('speechSynthesis' in window)) {
+        showNotification("Speech synthesis is not supported on your browser.", "error");
+        return;
+      }
+
+      if (isSpeaking) {
+        window.speechSynthesis.cancel();
+        isSpeaking = false;
+        ttsBtnText.innerText = "Listen Sample";
+        btnTTS.classList.remove('bg-amber-300');
+        return;
+      }
+
+      const scriptText = scriptBox.innerText;
+      const utterance = new SpeechSynthesisUtterance(scriptText);
+      utterance.lang = 'en-US';
+      utterance.rate = 0.9; // Slightly slower, clean ESL pace
+
+      utterance.onstart = () => {
+        isSpeaking = true;
+        ttsBtnText.innerText = "Stop Audio";
+        btnTTS.classList.add('bg-amber-300');
+      };
+
+      utterance.onend = utterance.onerror = () => {
+        isSpeaking = false;
+        ttsBtnText.innerText = "Listen Sample";
+        btnTTS.classList.remove('bg-amber-300');
+      };
+
+      window.speechSynthesis.speak(utterance);
+    });
+
+    // Notification Helper
+    function showNotification(msg, type = "error") {
+      notificationBox.classList.remove('hidden', 'bg-rose-100', 'text-rose-700', 'bg-emerald-100', 'text-emerald-700');
+      if (type === "error") {
+        notificationBox.classList.add('bg-rose-100', 'text-rose-700');
+      } else {
+        notificationBox.classList.add('bg-emerald-100', 'text-emerald-700');
+      }
+      notificationBox.innerHTML = `<i class="fa-solid fa-circle-exclamation mr-1.5"></i> ${msg}`;
+    }
+
+    function clearNotification() {
+      notificationBox.classList.add('hidden');
+      notificationBox.innerHTML = '';
+    }
+
+    // Timer Formatter
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    function setupVisualizer(stream) {
+      if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      analyserNode = audioContext.createAnalyser();
+      const source = audioContext.createMediaStreamSource(stream);
+      source.connect(analyserNode);
+
+      analyserNode.fftSize = 64;
+      const bufferLength = analyserNode.frequencyBinCount;
+      dataArray = new Uint8Array(bufferLength);
+
+      function draw() {
+        visualizerAnimationId = requestAnimationFrame(draw);
+        analyserNode.getByteFrequencyData(dataArray);
+
+        canvasCtx.fillStyle = '#0f172a'; // slate-900 matching card
+        canvasCtx.fillRect(0, 0, visualizerCanvas.width, visualizerCanvas.height);
+
+        const barWidth = (visualizerCanvas.width / bufferLength) * 2;
+        let x = 0;
+
+        for (let i = 0; i < bufferLength; i++) {
+          const barHeight = (dataArray[i] / 255) * (visualizerCanvas.height * 0.85);
+
+          // Warm amber / coral gradient for student feel
+          canvasCtx.fillStyle = `rgb(${245}, ${150 + i * 2}, ${80})`;
+          canvasCtx.beginPath();
+          canvasCtx.roundRect(x, (visualizerCanvas.height - barHeight) / 2, barWidth - 3, barHeight + 4, 3);
+          canvasCtx.fill();
+
+          x += barWidth;
+        }
+      }
+      draw();
+    }
+
+    function drawIdleVisualizer() {
+      canvasCtx.fillStyle = '#0f172a';
+      canvasCtx.fillRect(0, 0, visualizerCanvas.width, visualizerCanvas.height);
+      canvasCtx.fillStyle = '#334155';
+      const mid = visualizerCanvas.height / 2;
+      canvasCtx.fillRect(10, mid - 1, visualizerCanvas.width - 20, 2);
+    }
+
+    // Resize canvas dynamically
+    function resizeCanvas() {
+      visualizerCanvas.width = visualizerCanvas.offsetWidth;
+      visualizerCanvas.height = visualizerCanvas.offsetHeight;
+      if (!mediaRecorder || mediaRecorder.state !== 'recording') {
+        drawIdleVisualizer();
+      }
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    async function startRecording() {
+      clearNotification();
+      // If sample TTS is playing, stop it
+      if (isSpeaking) {
+        window.speechSynthesis.cancel();
+        isSpeaking = false;
+        ttsBtnText.innerText = "Listen Sample";
+      }
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        
+        audioChunks = [];
+        mediaRecorder = new MediaRecorder(stream);
+
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data.size > 0) {
+            audioChunks.push(event.data);
+          }
+        };
+
+        mediaRecorder.onstop = () => {
+          const mimeType = mediaRecorder.mimeType || 'audio/webm';
+          audioBlob = new Blob(audioChunks, { type: mimeType });
+          if (audioUrl) URL.revokeObjectURL(audioUrl);
+          audioUrl = URL.createObjectURL(audioBlob);
+
+          // Configure playback audio element
+          audioPlayback.src = audioUrl;
+          playbackSection.classList.remove('hidden');
+
+          // Stop mic tracks
+          stream.getTracks().forEach(track => track.stop());
+
+          // Stop visualizer loop
+          if (visualizerAnimationId) cancelAnimationFrame(visualizerAnimationId);
+          drawIdleVisualizer();
+
+          // UI update
+          recorderStatus.textContent = "Recorded Successfully";
+          recorderStatus.className = "text-xs font-semibold px-3 py-1 rounded-full bg-emerald-100 text-emerald-700";
+          btnReset.disabled = false;
+        };
+
+        mediaRecorder.start();
+        setupVisualizer(stream);
+
+        // Timer initialization
+        elapsedSeconds = 0;
+        timerDisplay.textContent = "00:00";
+        liveBadge.classList.remove('hidden');
+        timerInterval = setInterval(() => {
+          elapsedSeconds++;
+          timerDisplay.textContent = formatTime(elapsedSeconds);
+        }, 1000);
+
+        // UI states
+        btnRecord.disabled = true;
+        btnRecord.classList.add('opacity-50', 'cursor-not-allowed');
+        btnStop.disabled = false;
+        btnStop.classList.remove('bg-slate-200', 'text-slate-400', 'cursor-not-allowed');
+        btnStop.classList.add('bg-slate-800', 'hover:bg-slate-900', 'text-white', 'cursor-pointer');
+        btnReset.disabled = true;
+
+        recorderStatus.textContent = "Recording...";
+        recorderStatus.className = "text-xs font-semibold px-3 py-1 rounded-full bg-rose-100 text-rose-700 animate-pulse";
+
+      } catch (err) {
+        console.error("Microphone Access Error:", err);
+        showNotification("Could not access your microphone. Please check your browser microphone permission settings and try again.", "error");
+      }
+    }
+
+    function stopRecording() {
+      if (mediaRecorder && mediaRecorder.state === 'recording') {
+        mediaRecorder.stop();
+      }
+      clearInterval(timerInterval);
+      liveBadge.classList.add('hidden');
+
+      btnRecord.disabled = false;
+      btnRecord.classList.remove('opacity-50', 'cursor-not-allowed');
+      btnStop.disabled = true;
+      btnStop.className = "flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-slate-200 text-slate-400 font-semibold text-base transition-all cursor-not-allowed";
+    }
+
+    function resetRecording() {
+      if (mediaRecorder && mediaRecorder.state === 'recording') {
+        stopRecording();
+      }
+      audioChunks = [];
+      audioBlob = null;
+      if (audioUrl) {
+        URL.revokeObjectURL(audioUrl);
+        audioUrl = null;
+      }
+      audioPlayback.src = "";
+      playbackSection.classList.add('hidden');
+      timerDisplay.textContent = "00:00";
+      recorderStatus.textContent = "Ready to Record";
+      recorderStatus.className = "text-xs font-semibold px-3 py-1 rounded-full bg-slate-100 text-slate-600";
+      btnReset.disabled = true;
+      clearNotification();
+      drawIdleVisualizer();
+    }
+
+    // Download handler
+    function downloadRecording() {
+      if (!audioBlob) {
+        showNotification("No recorded audio available to download.", "error");
+        return;
+      }
+      const extension = audioBlob.type.includes('wav') ? 'wav' : (audioBlob.type.includes('mp4') ? 'mp4' : 'webm');
+      const filename = `Charlottes_Web_Lesson1_Reading_${new Date().toISOString().slice(0, 10)}.${extension}`;
+      
+      const downloadLink = document.createElement('a');
+      downloadLink.href = audioUrl;
+      downloadLink.download = filename;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    }
+
+    // Attach Event Listeners
+    btnRecord.addEventListener('click', startRecording);
+    btnStop.addEventListener('click', stopRecording);
+    btnReset.addEventListener('click', resetRecording);
+    btnDownload.addEventListener('click', downloadRecording);
+
+    // Initial draw
+    drawIdleVisualizer();
+  </script>
+</body>
+</html>
